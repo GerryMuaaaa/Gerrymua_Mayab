@@ -3,6 +3,9 @@ using UnityEngine.Events;
 
 public class HealthComponent : MonoBehaviour, IDamageable
 {
+    [SerializeField] Animator animator;
+    [SerializeField] string moridoTrigger = "Morido";
+
     [Header("Health")]
     [SerializeField] float maxHealth = 100f;
     [SerializeField] bool destroyOnDeath;
@@ -86,6 +89,9 @@ public class HealthComponent : MonoBehaviour, IDamageable
     {
         isDead = true;
         OnDeath?.Invoke();
+
+        if (animator != null)
+            animator.SetTrigger(moridoTrigger);
 
         if (destroyOnDeath)
             Destroy(gameObject, destroyDelay);
